@@ -1,51 +1,90 @@
 import { useEffect, useState } from "react";
-import spacePhoto from "../assets/space-photo.jpg";
 
 function PicOfDay() {
   const [pic, setPic] = useState(null);
+  const [isError, setIsError] = useState(false);
+  const [imageElement, setImageElement] = useState(null);
+  const [showFullText, setShowFullText] = useState(false);
+
+  const buttonStyle =
+    "px-3 py-1 mx-3  bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:from-purple-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-purple-300 transition duration-300 ease-in-out";
 
   useEffect(() => {
+    console.log("fecthing data");
     fetch("http://localhost:3000/picofday")
       .then((response) => response.json())
       .then((dataResponse) => {
-        console.log(dataResponse);
-        setPic(dataResponse);
+        if (!dataResponse?.error) {
+          setPic(dataResponse);
+        }
+      })
+      .catch(() => {
+        setIsError(true);
       });
   }, []);
 
-  let imageElement = null;
-
-  if (pic?.url.includes("youtube")) {
-    imageElement = (
-      <iframe
-        className="w-full"
-        height="380"
-        src={pic?.url}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      ></iframe>
-    );
-  } else {
-    imageElement = <img className="w-2/3" src={pic?.url}></img>;
-  }
+  useEffect(() => {
+    if (!pic) return;
+    if (pic?.url?.includes("youtube")) {
+      setImageElement(
+        <iframe
+          className="w-full"
+          height="380"
+          src={pic?.url}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+      );
+    } else {
+      setImageElement(<img className="w-full" src={pic?.url}></img>);
+    }
+  }, [pic?.url]);
 
   return (
-    <div className="flex justify-center items-center">
-      {pic ? (
-        <div className="w-4/6">
-          <h1>{pic.title}</h1>
-          <div className="flex flex-col gap-10">
+    <div className="flex justify-center items-center bg-gradient-to-b from-purple-900 to-blue-800">
+      {pic && !isError && (
+        <div className="flex flex-col items-center gap-4 w-4/6">
+          <h1 className="text-3xl">{pic.title}</h1>
+          <div className="flex flex-col gap-6">
             {imageElement}
-            <p className="w-full">{pic.explanation}</p>
+            <p className="w-full">
+              {showFullText ? (
+                <>
+                  <span> {pic.explanation}</span>
+                  <button
+                    className={buttonStyle}
+                    onClick={() => setShowFullText(false)}
+                  >
+                    hide
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span>{pic.explanation.substring(0, 100)}</span>
+                  <button
+                    className={buttonStyle}
+                    onClick={() => setShowFullText(true)}
+                  >
+                    show
+                  </button>
+                </>
+              )}
+            </p>
           </div>
         </div>
-      ) : (
+      )}
+      {!isError && !imageElement && (
         <div className="w-screen h-screen bg-slate-800 flex justify-center items-center">
           <h1 className="text-slate-50 text-4xl">Loading</h1>
         </div>
-      )}{" "}
+      )}
+      {isError && (
+        <div className="w-screen h-screen bg-slate-800 flex justify-center items-center">
+          <h1 className="text-slate-50 text-4xl">Error fecthing data</h1>
+        </div>
+      )}
     </div>
   );
 }
