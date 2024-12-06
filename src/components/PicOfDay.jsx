@@ -43,7 +43,7 @@ function PicOfDay() {
   }, [pic?.url]);
 
   return (
-    <div className="flex justify-center items-center bg-gradient-to-b from-purple-900 to-blue-800 w-4/5 p-8 my-8 rounded-lg text-slate-300">
+    <div className="flex justify-center items-center bg-gradient-to-b from-purple-900 to-blue-800 w-1/2 p-8 my-8 rounded-lg text-slate-300">
       {pic && !isError && (
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-3xl">{pic.title}</h1>

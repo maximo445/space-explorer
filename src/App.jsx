@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
+import Header from "./components/Header";
 import PicOfDay from "./components/PicOfDay";
 import MarsPhotos from "./components/MarsPhotos";
 
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <Link to="/">Home</Link> | <Link to="/marsphotos">Mars</Link>
-        </nav>
+      <div className="p-10">
+        <Header />
         <Routes>
           <Route path="/" element={<PicOfDay />} />
           <Route path="/marsphotos" element={<MarsPhotos />} />
