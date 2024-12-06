@@ -46,7 +46,11 @@ function PicOfDay() {
     <div className="flex justify-center items-center bg-gradient-to-b from-purple-900 to-blue-800 w-1/2 p-8 my-8 rounded-lg text-slate-300">
       {pic && !isError && (
         <div className="flex flex-col items-center gap-4">
-          <h1 className="text-3xl">{pic.title}</h1>
+          <span className="flex gap-4">
+            <h1 className="text-3xl font-bold">Todays highlight:</h1>
+            <h1 className="text-3xl text-slate-400">{pic.title}</h1>
+          </span>
+
           <div className="flex flex-col gap-6">
             {imageElement}
             <p className="w-full">
@@ -76,12 +80,12 @@ function PicOfDay() {
         </div>
       )}
       {!isError && !imageElement && (
-        <div className="w-screen h-screen bg-slate-800 flex justify-center items-center">
+        <div className="w-full h-96 bg-slate-800 flex justify-center items-center">
           <h1 className="text-slate-50 text-4xl">Loading</h1>
         </div>
       )}
       {isError && (
-        <div className="w-screen h-screen bg-slate-800 flex justify-center items-center">
+        <div className="w-full h-96 bg-slate-800 flex justify-center items-center">
           <h1 className="text-slate-50 text-4xl">Error fecthing data</h1>
         </div>
       )}
