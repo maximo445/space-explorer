@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TimeFramePicker from "./TimeFramePicker";
+import MarsRoverPicker from "./MarsRoverPicker";
 
 function MarsInputTaker() {
   const [searchType, setSearchType] = useState("randon");
@@ -42,18 +43,11 @@ function MarsInputTaker() {
             )}
           </div>
 
-          <div>
-            <label htmlFor="rover">Choose a Mars Rover:</label>
-            <select
-              value={marsRover}
-              onChange={(e) => setMarsRover(e.target.value)}
-              id="rover"
-              name="rover"
-            >
-              <option value="curiosity">Curiosity</option>
-              <option value="opportunity">Opportunity</option>
-              <option value="spirit">Spirit</option>
-            </select>
+          <div className="flex w-full justify-start my-8">
+            <MarsRoverPicker
+              marsRover={marsRover}
+              handleSetMarsRover={setMarsRover}
+            />
           </div>
           <button>Go</button>
         </div>
