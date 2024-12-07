@@ -7,3 +7,14 @@ export const curiosityCameras = [
   { a: "mardi", camera: "Mars Descent Imager" },
   { a: "navcam", camera: "Navigation Camera" },
 ];
+
+export const osCameras = [
+  { a: "fhaz", camera: "Front Hazard Avoidance Camera" },
+  { a: "rhaz", camera: "Rear Hazard Avoidance Camera" },
+  { a: "navcam", camera: "Navigation Camera" },
+  { a: "pancam", camera: "Panoramic Camera" },
+  {
+    a: "minites",
+    camera: "Miniature Thermal Emission Spectrometer (Mini-TES)",
+  },
+];

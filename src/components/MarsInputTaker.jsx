@@ -1,7 +1,9 @@
 import { useState } from "react";
 import TimeFramePicker from "./TimeFramePicker";
 import MarsRoverPicker from "./MarsRoverPicker";
-import CuriosityCameraPicker from "./CuriosityCameraPicker";
+import CameraPicker from "./CameraPicker";
+import { curiosityCameras } from "../utils/cameras";
+import { osCameras } from "../utils/cameras";
 
 function MarsInputTaker() {
   const [searchType, setSearchType] = useState("randon");
@@ -51,9 +53,18 @@ function MarsInputTaker() {
               handleSetMarsRover={setMarsRover}
             />
             {marsRover === "curiosity" && (
-              <CuriosityCameraPicker
+              <CameraPicker
                 camera={camera}
                 handleSetCamera={setCamera}
+                cameraTypes={curiosityCameras}
+              />
+            )}
+
+            {marsRover !== "curiosity" && (
+              <CameraPicker
+                camera={camera}
+                handleSetCamera={setCamera}
+                cameraTypes={osCameras}
               />
             )}
           </div>

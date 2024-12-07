@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
-import { curiosityCameras } from "../utils/cameras";
 
-function CuriosityCameraPicker({ camera, handleSetCamera }) {
+function CameraPicker({ camera, handleSetCamera, cameraTypes }) {
   return (
     <div className="flex flex-col">
       <label htmlFor="camera">Camera:</label>
@@ -11,7 +10,7 @@ function CuriosityCameraPicker({ camera, handleSetCamera }) {
         id="camera"
         name="camera"
       >
-        {curiosityCameras.map((cam) => (
+        {cameraTypes.map((cam) => (
           <option key={cam.a} value={cam.a}>
             {cam.camera}
           </option>
@@ -21,9 +20,10 @@ function CuriosityCameraPicker({ camera, handleSetCamera }) {
   );
 }
 
-CuriosityCameraPicker.propTypes = {
+CameraPicker.propTypes = {
   camera: PropTypes.string.isRequired,
   handleSetCamera: PropTypes.func.isRequired,
+  cameraTypes: PropTypes.array.isRequired,
 };
 
-export default CuriosityCameraPicker;
+export default CameraPicker;
