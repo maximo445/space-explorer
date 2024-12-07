@@ -2,6 +2,7 @@ import { useState } from "react";
 import TimeFramePicker from "./TimeFramePicker";
 import MarsRoverPicker from "./MarsRoverPicker";
 import CameraPicker from "./CameraPicker";
+import DatePicker from "./DatePicker";
 import { curiosityCameras } from "../utils/cameras";
 import { osCameras } from "../utils/cameras";
 
@@ -9,6 +10,12 @@ function MarsInputTaker() {
   const [searchType, setSearchType] = useState("randon");
   const [marsRover, setMarsRover] = useState("curiosity");
   const [camera, setCamera] = useState("fhaz");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  function getMarsStuff() {
+    console.log({ rover: marsRover, camera, startDate, endDate });
+  }
 
   return (
     <div className="w-1/2">
@@ -25,26 +32,13 @@ function MarsInputTaker() {
               searchType={searchType}
               handleSetSearchType={setSearchType}
             />
-            {searchType !== "randon" && (
-              <span
-                className={
-                  searchType === "single "
-                    ? "flex justify-start w-full"
-                    : "flex justify-around w-full"
-                }
-              >
-                <span className="flex flex-col">
-                  <label htmlFor="start">Start Date</label>
-                  <input type="date" name="start" id="start" />
-                </span>
-                {searchType !== "single" && (
-                  <span className="flex flex-col">
-                    <label htmlFor="end">End Date</label>
-                    <input type="date" name="end" id="end" />
-                  </span>
-                )}
-              </span>
-            )}
+            <DatePicker
+              searchType={searchType}
+              startDate={startDate}
+              endDate={endDate}
+              handleStartDate={setStartDate}
+              handleEndDate={setEndDate}
+            />
           </div>
 
           <div className="flex w-full justify-between my-8">
@@ -68,7 +62,7 @@ function MarsInputTaker() {
               />
             )}
           </div>
-          <button>Go</button>
+          <button onClick={getMarsStuff}>Go</button>
         </div>
       </div>
     </div>
