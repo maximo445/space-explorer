@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 
 function MarsRoverPicker({ marsRover, handleSetMarsRover }) {
   return (
-    <div>
-      <label htmlFor="rover">Choose a Mars Rover:</label>
+    <div className="flex flex-col">
+      <label htmlFor="rover">Mars Rover:</label>
       <select
         value={marsRover}
         onChange={(e) => handleSetMarsRover(e.target.value)}

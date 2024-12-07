@@ -1,10 +1,12 @@
 import { useState } from "react";
 import TimeFramePicker from "./TimeFramePicker";
 import MarsRoverPicker from "./MarsRoverPicker";
+import CuriosityCameraPicker from "./CuriosityCameraPicker";
 
 function MarsInputTaker() {
   const [searchType, setSearchType] = useState("randon");
   const [marsRover, setMarsRover] = useState("curiosity");
+  const [camera, setCamera] = useState("fhaz");
 
   return (
     <div className="w-1/2">
@@ -43,11 +45,17 @@ function MarsInputTaker() {
             )}
           </div>
 
-          <div className="flex w-full justify-start my-8">
+          <div className="flex w-full justify-between my-8">
             <MarsRoverPicker
               marsRover={marsRover}
               handleSetMarsRover={setMarsRover}
             />
+            {marsRover === "curiosity" && (
+              <CuriosityCameraPicker
+                camera={camera}
+                handleSetCamera={setCamera}
+              />
+            )}
           </div>
           <button>Go</button>
         </div>
