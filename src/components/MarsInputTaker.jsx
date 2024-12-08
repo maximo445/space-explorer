@@ -17,6 +17,36 @@ function MarsInputTaker() {
     console.log({ rover: marsRover, camera, startDate, endDate });
   }
 
+  async function fetchMarsData() {
+    const params = {
+      camera: camera,
+      rover: marsRover,
+    };
+
+    if (startDate) {
+      params.earth_date = startDate;
+    } else {
+      params.earth_date = "";
+    }
+
+    const queryString = new URLSearchParams(params).toString();
+
+    const url = `http://localhost:3000/mars-photos?${queryString}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Data response was not ok");
+      } else {
+        const data = await response.json();
+
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("There was a problem fecthing the data:", error);
+    }
+  }
+
   return (
     <div className="w-1/2">
       <div className="flex justify-center w-full p-8">
@@ -62,7 +92,7 @@ function MarsInputTaker() {
               />
             )}
           </div>
-          <button onClick={getMarsStuff}>Go</button>
+          <button onClick={fetchMarsData}>Go</button>
         </div>
       </div>
     </div>
