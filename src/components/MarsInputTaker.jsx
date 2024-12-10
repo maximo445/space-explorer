@@ -10,12 +10,8 @@ function MarsInputTaker() {
   const [searchType, setSearchType] = useState("randon");
   const [marsRover, setMarsRover] = useState("curiosity");
   const [camera, setCamera] = useState("fhaz");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
-  function getMarsStuff() {
-    console.log({ rover: marsRover, camera, startDate, endDate });
-  }
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   async function fetchMarsData() {
     const params = {
@@ -68,6 +64,7 @@ function MarsInputTaker() {
               endDate={endDate}
               handleStartDate={setStartDate}
               handleEndDate={setEndDate}
+              rover={marsRover}
             />
           </div>
 

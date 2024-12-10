@@ -12,7 +12,6 @@ function TimeFramePicker({ searchType, handleSetSearchType }) {
       >
         <option value="randon">Randon Day</option>
         <option value="single">Single Day</option>
-        <option value="range">Range</option>
       </select>
     </div>
   );
