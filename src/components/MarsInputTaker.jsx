@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TimeFramePicker from "./TimeFramePicker";
 import MarsRoverPicker from "./MarsRoverPicker";
 import CameraPicker from "./CameraPicker";
@@ -13,6 +14,14 @@ function MarsInputTaker() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchType === "randon") {
+      setStartDate("");
+    }
+  }, [searchType]);
+
   async function fetchMarsData() {
     const params = {
       camera: camera,
@@ -24,6 +33,8 @@ function MarsInputTaker() {
     } else {
       params.earth_date = "";
     }
+
+    console.log({ camera, marsRover, startDate });
 
     const queryString = new URLSearchParams(params).toString();
 
@@ -37,6 +48,13 @@ function MarsInputTaker() {
         const data = await response.json();
 
         console.log(data);
+
+        if (data.photos.length > 0) {
+          navigate("/marsphotos", { state: data });
+        } else
+          alert(
+            "Your search returned 0 results. Please try again. Consider using a random day"
+          );
       }
     } catch (error) {
       console.error("There was a problem fecthing the data:", error);
